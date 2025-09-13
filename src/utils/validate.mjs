@@ -1,4 +1,4 @@
-import { requiredFields, schema } from '../models/movie.js';
+import { requiredFields, schema } from '../models/movie.mjs';
 
 export function validateMovie(data) {
   for (const field of requiredFields) {

@@ -1,4 +1,4 @@
-import { getMongoClient } from '../db/mongoClient.js';
+import { getMongoClient } from '../db/mongoClient.mjs';
 import { log } from '../utils/logger.mjs';
 import { ObjectId } from 'mongodb';
 

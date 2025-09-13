@@ -1,4 +1,4 @@
-import { getMongoClient } from '../db/mongoClient.js';
+import { getMongoClient } from '../db/mongoClient.mjs';
 import { log } from '../utils/logger.mjs';
 
 export async function handler(event) {

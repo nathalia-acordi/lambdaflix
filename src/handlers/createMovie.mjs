@@ -1,5 +1,5 @@
-import { getMongoClient } from '../db/mongoClient.js';
-import { validateMovie } from '../utils/validate.js';
+import { getMongoClient } from '../db/mongoClient.mjs';
+import { validateMovie } from '../utils/validate.mjs';
 import { log } from '../utils/logger.mjs';
 
 export async function handler(event) {
