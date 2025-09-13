@@ -10,7 +10,7 @@
 ## ✨ Sobre o Projeto
 
 API de filmes construída com:
-- <b>AWS Lambda</b> (Node.js 18.x)
+- <b>AWS Lambda</b> (Node.js 22.x)
 - <b>API Gateway</b>
 - <b>MongoDB Atlas</b>
 
