@@ -1,18 +1,21 @@
 <div align="center">
-  <h1>🎬 Lambdaflix 🍿</h1>
-  <p><b>API Serverless de Filmes</b></p>
-  <p><i>Projeto para a disciplina <b>85ESE Engenharia Orientada a Serviços</b> — Workshop de Serverless e FaaS</i></p>
+
+# 🎬 Lambdaflix 🍿
+
+**API Serverless de Filmes**
+
+*Projeto para a disciplina **85ESE Engenharia Orientada a Serviços** — Workshop de Serverless e FaaS*
+
+<br>
+
+<img src="https://img.shields.io/badge/node-22-green?logo=node.js" alt="Node.js 22">
+<img src="https://img.shields.io/badge/aws-lambda-orange?logo=amazon-aws" alt="AWS Lambda">
+<img src="https://img.shields.io/badge/mongodb-atlas-brightgreen?logo=mongodb" alt="MongoDB Atlas">
+<img src="https://img.shields.io/badge/tested%20with-vitest-6E9F18?logo=vitest" alt="Vitest">
+
 </div>
 
-<div align="center">
-  <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/node-22-green?logo=node.js" alt="Node.js 22"></a>&nbsp;&nbsp;
-  <a href="https://docs.aws.amazon.com/lambda/"><img src="https://img.shields.io/badge/aws-lambda-orange?logo=amazon-aws" alt="AWS Lambda"></a>&nbsp;&nbsp;
-  <a href="https://www.mongodb.com/atlas"><img src="https://img.shields.io/badge/mongodb-atlas-brightgreen?logo=mongodb" alt="MongoDB Atlas"></a>&nbsp;&nbsp;
-  <a href="https://vitest.dev/"><img src="https://img.shields.io/badge/tested%20with-vitest-6E9F18?logo=vitest" alt="Vitest"></a>
-</div>
-
----
-
+----
 
 ## 📦 Instalação local e dependências
 
@@ -33,32 +36,29 @@ npm test
 
 ## 🗂️ Estrutura do projeto
 
+
 ```text
-src/
-  handlers/   # Funções Lambda (createMovie, listMovies, getMovie)
-  db/         # Conexão MongoDB
-  models/     # Schema/modelo do filme
-  utils/      # Validação e logger
-tests/        # Testes automatizados
+handlers/   # Funções Lambda (createMovie, listMovies, getMovie)
+db/         # Conexão MongoDB
+models/     # Schema/modelo do filme
+utils/      # Validação e logger
+tests/      # Testes automatizados
 ```
 
 
 
 ### 📑 O que faz cada arquivo/pasta
 
-<div align="center">
 
-| Caminho                | Descrição                                                                 |
-|------------------------|---------------------------------------------------------------------------|
-| src/handlers/          | Funções Lambda: ponto de entrada da API (createMovie, listMovies, getMovie) |
-| src/utils/             | Funções utilitárias: validação de dados, logger, helpers                   |
-| src/models/            | Schema/modelo do filme para o MongoDB                                      |
-| src/db/                | Conexão e utilitários para acesso ao MongoDB                               |
-| tests/                 | Testes automatizados com Vitest                                            |
-| package.json           | Dependências, scripts e metadados do projeto                               |
-| README.md              | Documentação do projeto                                                    |
-
-</div>
+| Caminho         | Descrição                                                                 |
+|-----------------|---------------------------------------------------------------------------|
+| src/handlers/   | Funções Lambda: ponto de entrada da API (createMovie, listMovies, getMovie) |
+| src/utils/      | Funções utilitárias: validação de dados, logger, helpers                   |
+| src/models/     | Schema/modelo do filme para o MongoDB                                      |
+| src/db/         | Conexão e utilitários para acesso ao MongoDB                               |
+| tests/          | Testes automatizados com Vitest                                            |
+| package.json    | Dependências, scripts e metadados do projeto                               |
+| README.md       | Documentação do projeto                                                    |
 
 
 ---
@@ -66,28 +66,25 @@ tests/        # Testes automatizados
 
 ## 🔗 Endpoints
 
-<div align="center">
 
-| Método | Rota           | Descrição           |
-|--------|----------------|---------------------|
-| POST   | /movies        | Cria filme          |
-| GET    | /movies        | Lista filmes        |
-| GET    | /movies/{id}   | Busca filme por ID  |
-
-</div>
+| Método | Rota         | Descrição           |
+|--------|--------------|---------------------|
+| POST   | /movies      | Cria filme          |
+| GET    | /movies      | Lista filmes        |
+| GET    | /movies/{id} | Busca filme por ID  |
 
 ---
 
 
 ## 📋 Exemplos de payloads e respostas
 
-<details>
-<summary><strong>Ver exemplos de payloads e respostas</strong></summary>
 
-<details>
-<summary><b>POST /movies</b></summary>
+### Exemplos de payloads e respostas
+
+#### POST /movies
 
 **Payload:**
+
 ```json
 {
   "title": "In the Mood for Love",
@@ -98,6 +95,7 @@ tests/        # Testes automatizados
 ```
 
 **Resposta 201:**
+
 ```json
 {
   "_id": "650c1e2f8b1e8a001f8e4a12",
@@ -109,18 +107,17 @@ tests/        # Testes automatizados
 ```
 
 **Resposta 400:**
+
 ```json
 {
   "error": "Campo 'title' é obrigatório."
 }
 ```
 
-</details>
-
-<details>
-<summary><b>GET /movies</b></summary>
+#### GET /movies
 
 **Resposta 200:**
+
 ```json
 [
   {
@@ -140,12 +137,10 @@ tests/        # Testes automatizados
 ]
 ```
 
-</details>
-
-<details>
-<summary><b>GET /movies/{id}</b></summary>
+#### GET /movies/{id}
 
 **Resposta 200:**
+
 ```json
 {
   "_id": "650c1e2f8b1e8a001f8e4a12",
@@ -157,15 +152,12 @@ tests/        # Testes automatizados
 ```
 
 **Resposta 404:**
+
 ```json
 {
   "error": "Filme não encontrado."
 }
 ```
-
-</details>
-
-</details>
 
 ---
 
@@ -262,11 +254,45 @@ tests/        # Testes automatizados
 
 ## 📊 Observabilidade
 
-Logs estruturados em JSON são enviados automaticamente para o CloudWatch.
+Para visualizar os logs, acesse o serviço **CloudWatch Logs** no console AWS, selecione o grupo de logs da sua função Lambda e procure pelas entradas em JSON.
+
+
+### 🛠️ Utils: Validação e Logger
+
+O projeto utiliza dois utilitários principais para garantir robustez e observabilidade:
+
+**1. Validação (`validate`)**
+- Garante que todo payload enviado para criar um filme siga o schema esperado.
+- Se faltar algum campo obrigatório (ex: `title`) ou algum campo estiver com tipo errado, a função retorna erro 400 e uma mensagem clara, como:
+
+  ```json
+  {
+    "error": "Campo 'title' é obrigatório."
+  }
+  ```
+- Para testar a validação, envie um payload inválido (ex: sem o campo `title`) para o endpoint POST `/movies` e veja a resposta de erro.
+
+**2. Logger (`logger`)**
+- Todos os eventos importantes (erros, avisos, operações de negócio) são registrados em logs estruturados no formato JSON.
+- Esses logs são enviados automaticamente para o AWS CloudWatch.
+- Exemplo de log:
+
+  ```json
+  {
+    "timestamp": "2025-09-19T22:50:35.726Z",
+    "message": "Filme já existe",
+    "title": "In the Mood for Love",
+    "year": 2000
+  }
+  ```
+
+
+Esses utilitários garantem que erros sejam detectados rapidamente e que o comportamento da API seja auditável e transparente em produção.
 
 ---
 
 ## 🗺️ Fluxograma do projeto
+
 
 ```mermaid
 flowchart TD
@@ -278,6 +304,7 @@ flowchart TD
 ```
 ---
 
-<div align="center" style="margin-top: 2em; background: linear-gradient(90deg,#ff9800,#ff3c3c,#6e9f18,#00bcd4); color: white; padding: 1em 0; border-radius: 8px; font-weight: bold; font-size: 1.1em;">
-  Desenvolvido por Nathalia Acordi e Nicolas Weber para fins acadêmicos.
+
+<div align="center">
+Desenvolvido por Nathalia Acordi e Nicolas Weber para fins acadêmicos.
 </div>
