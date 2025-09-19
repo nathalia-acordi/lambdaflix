@@ -16,7 +16,7 @@ export async function handler(event) {
       return { statusCode: 404, body: JSON.stringify({ error: 'Filme não encontrado' }) };
     }
     log('Filme encontrado', { id });
-    return { statusCode: 200, body: JSON.stringify(movie) };
+    return { statusCode: 200, body: JSON.stringify(movie, null, 2) };
   } catch (err) {
     log('Erro ao buscar filme', { error: err.message });
     return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
