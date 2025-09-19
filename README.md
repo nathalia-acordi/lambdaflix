@@ -1,5 +1,3 @@
-
-
 <div align="center">
   <h1>🎬 Lambdaflix 🍿</h1>
   <p><b>API Serverless de Filmes</b></p>
@@ -15,12 +13,13 @@
 
 ---
 
-## 💻 Instalação Local e Dependências
+
+## 📦 Instalação local e dependências
 
 ```bash
 # Clone o repositório
-
-cd lambdaflix
+git clone https://github.com/nathalia-acordi/lambdaflix.git
+cd lambdaflix/lambdaflix
 
 # Instale as dependências
 npm install
@@ -31,7 +30,8 @@ npm test
 
 ---
 
-## 📁 Estrutura do Projeto
+
+## 🗂️ Estrutura do projeto
 
 ```text
 src/
@@ -42,9 +42,31 @@ src/
 tests/        # Testes automatizados
 ```
 
+
+
+### 📑 O que faz cada arquivo/pasta
+
+<div align="center">
+
+| Caminho                | Descrição                                                                 |
+|------------------------|---------------------------------------------------------------------------|
+| src/handlers/          | Funções Lambda: ponto de entrada da API (createMovie, listMovies, getMovie) |
+| src/utils/             | Funções utilitárias: validação de dados, logger, helpers                   |
+| src/models/            | Schema/modelo do filme para o MongoDB                                      |
+| src/db/                | Conexão e utilitários para acesso ao MongoDB                               |
+| tests/                 | Testes automatizados com Vitest                                            |
+| package.json           | Dependências, scripts e metadados do projeto                               |
+| README.md              | Documentação do projeto                                                    |
+
+</div>
+
+
 ---
 
+
 ## 🔗 Endpoints
+
+<div align="center">
 
 | Método | Rota           | Descrição           |
 |--------|----------------|---------------------|
@@ -52,10 +74,12 @@ tests/        # Testes automatizados
 | GET    | /movies        | Lista filmes        |
 | GET    | /movies/{id}   | Busca filme por ID  |
 
+</div>
+
 ---
 
 
-## 📦 Payloads e Respostas
+## 📋 Exemplos de payloads e respostas
 
 <details>
 <summary><strong>Ver exemplos de payloads e respostas</strong></summary>
@@ -145,43 +169,72 @@ tests/        # Testes automatizados
 
 ---
 
-## 🚀 Deploy na AWS Lambda & API Gateway
 
-### 1️⃣ Empacotar cada função Lambda
-Para cada handler (`src/handlers/*.mjs`):
-1. Crie uma pasta separada para cada função.
-2. Copie o handler e as dependências necessárias (`src/db`, `src/models`, `src/utils`).
-3. Não inclua `node_modules` ainda.
+## 🚀 Deploy na AWS Lambda e API Gateway
 
-### 2️⃣ Criar um Lambda Layer com node_modules
-No terminal, execute:
-```bash
-npm install --production
-mkdir -p layer/nodejs
-cp -r node_modules layer/nodejs/
-zip -r layer.zip layer
-```
-No console AWS Lambda, crie um novo Layer e faça upload do `layer.zip`.
 
-### 3️⃣ Subir as funções Lambda
-1. Para cada função, compacte os arquivos do handler (ex: `createMovie.mjs`, pastas utilitárias) em um `.zip`.
-2. No console AWS Lambda, crie uma função, selecione o runtime Node.js 18.x ou superior.
-3. Faça upload do `.zip`.
-4. Em "Camadas", adicione o Layer criado anteriormente.
 
-### 4️⃣ Configurar variáveis de ambiente
-No console da função Lambda, vá em <b>Configuração > Variáveis de ambiente</b> e adicione:
-- <b>MONGODB_URI</b>: string de conexão do MongoDB Atlas
-- <b>DB_NAME</b>: nome do banco
+### 📦 Passo 1: Empacotar cada função Lambda
 
-### 5️⃣ Criar a API Gateway
+**💻 PowerShell (Windows):**
+1. Crie a pasta `dist` se não existir:
+  ```powershell
+  New-Item -ItemType Directory -Force -Path dist
+  ```
+2. Empacote cada função (exemplo para createMovie):
+  ```powershell
+  Compress-Archive -Path src/handlers/createMovie.mjs,src/utils,src/models,src/db -DestinationPath dist/createMovie.zip -Force
+  Compress-Archive -Path src/handlers/listMovies.mjs,src/utils,src/models,src/db -DestinationPath dist/listMovies.zip -Force
+  Compress-Archive -Path src/handlers/getMovie.mjs,src/utils,src/models,src/db -DestinationPath dist/getMovie.zip -Force
+  ```
+
+**🐧 Linux/MacOS:**
+1. Crie a pasta `dist` se não existir e compacte cada função:
+  ```bash
+  mkdir -p dist
+  zip -r dist/createMovie.zip src/handlers/createMovie.mjs src/utils src/models src/db
+  zip -r dist/listMovies.zip src/handlers/listMovies.mjs src/utils src/models src/db
+  zip -r dist/getMovie.zip src/handlers/getMovie.mjs src/utils src/models src/db
+  ```
+> Inclua sempre todos os arquivos/pastas que o handler importa (utils, models, db, etc). O zip deve conter a estrutura esperada pelo código.
+
+### 📚 Passo 2: Criar um Lambda Layer com node_modules
+
+**💻 PowerShell (Windows):**
+1. Crie a estrutura esperada pelo Lambda Layer:
+  ```powershell
+  New-Item -ItemType Directory -Force -Path layer\nodejs
+  Copy-Item node_modules layer\nodejs\ -Recurse
+  Compress-Archive -Path layer\* -DestinationPath dist\layer.zip -Force
+  ```
+
+**🐧 Linux/MacOS:**
+1. Crie a estrutura esperada pelo Lambda Layer:
+  ```bash
+  mkdir -p layer/nodejs
+  cp -r node_modules layer/nodejs/
+  zip -r dist/layer.zip layer/*
+  ```
+2. No console AWS Lambda, crie um novo Layer e faça upload do `dist/layer.zip`.
+
+### ☁️ Passo 3: Subir as funções Lambda
+1. No console AWS Lambda, crie uma função para cada handler, selecione o runtime Node.js 18.x ou superior.
+2. Faça upload do `.zip` correspondente (ex: `createMovie.zip`).
+3. Em "Camadas", adicione o Layer criado anteriormente.
+
+### ⚙️ Passo 4: Configurar variáveis de ambiente
+1. No console da função Lambda, vá em **Configuração > Variáveis de ambiente** e adicione:
+  - **MONGODB_URI**: string de conexão do MongoDB Atlas
+  - **DB_NAME**: nome do banco
+
+### 🌐 Passo 5: Criar a API Gateway
 1. No console do API Gateway, crie uma nova API REST.
 2. Crie recursos (ex: `/movies`) e métodos (POST, GET, GET /{id}).
 3. Para cada método, configure a integração com a função Lambda correspondente.
 4. Faça deploy da API.
 
-### 6️⃣ Testar
-Use o console do API Gateway ou ferramentas como Postman para testar os endpoints.
+### 🧪 Passo 6: Testar
+1. Use o console do API Gateway ou ferramentas como Postman para testar os endpoints.
 
 ---
 
@@ -191,7 +244,7 @@ Logs estruturados em JSON são enviados automaticamente para o CloudWatch.
 
 ---
 
-## 🗺️ Fluxograma do Projeto
+## 🗺️ Fluxograma do projeto
 
 ```mermaid
 flowchart TD
