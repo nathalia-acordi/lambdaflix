@@ -234,7 +234,29 @@ tests/        # Testes automatizados
 4. Faça deploy da API.
 
 ### 🧪 Passo 6: Testar
+
 1. Use o console do API Gateway ou ferramentas como Postman para testar os endpoints.
+
+---
+
+## ℹ️ Observação importante sobre nomes de arquivos no AWS Lambda
+
+⚠️ **Atenção:** Em muitos ambientes AWS Lambda, apenas arquivos chamados `index.js` ou `index.mjs` são reconhecidos como entrypoint, mesmo que o campo Handler seja configurável. Por isso, recomenda-se:
+
+1. Para cada função, renomeie o arquivo principal do handler para `index.mjs` dentro do .zip antes de fazer upload.
+2. O campo Handler deve ser sempre:
+
+  ```
+  index.handler
+  ```
+
+3. O arquivo `index.mjs` deve exportar a função handler normalmente:
+
+  ```js
+  export const handler = async (event) => { /* ... */ }
+  ```
+
+> Assim, você garante compatibilidade total com o Lambda, independentemente do ambiente ou método de deploy.
 
 ---
 
