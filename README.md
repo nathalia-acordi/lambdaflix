@@ -321,14 +321,34 @@ Esses utilitários garantem que erros sejam detectados rapidamente e que o compo
 
 ## 🗺️ Fluxograma do projeto
 
-
 ```mermaid
-flowchart TD
-  API[Usuário/API Gateway] -->|Requisição HTTP| Lambda[Função Lambda Handler]
-  Lambda -->|Validação| Validate[Validação de dados]
-  Lambda -->|Conexão| MongoDB[(MongoDB Atlas)]
-  Lambda -->|Log| CloudWatch[CloudWatch Logs]
-  Lambda -->|Resposta| API
+flowchart TB
+  User[Usuário]
+  Postman[Postman]
+  APIGW[API Gateway]
+  subgraph Lambda Handlers
+    H1[createMovie]
+    H2[listMovies]
+    H3[getMovie]
+    H4[updateMovie]
+  end
+  DB[(MongoDB)]
+  CW[CloudWatch]
+
+  User --> Postman
+  Postman --> APIGW
+  APIGW --> H1
+  APIGW --> H2
+  APIGW --> H3
+  APIGW --> H4
+  H1 --> DB
+  H2 --> DB
+  H3 --> DB
+  H4 --> DB
+  H1 --> CW
+  H2 --> CW
+  H3 --> CW
+  H4 --> CW
 ```
 ---
 
