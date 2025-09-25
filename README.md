@@ -38,7 +38,7 @@ npm test
 
 
 ```text
-handlers/   # Funções Lambda (createMovie, listMovies, getMovie)
+handlers/   # Funções Lambda (createMovie, listMovies, getMovie, updateMovie)
 db/         # Conexão MongoDB
 models/     # Schema/modelo do filme
 utils/      # Validação e logger
@@ -52,7 +52,7 @@ tests/      # Testes automatizados
 
 | Caminho         | Descrição                                                                 |
 |-----------------|---------------------------------------------------------------------------|
-| src/handlers/   | Funções Lambda: ponto de entrada da API (createMovie, listMovies, getMovie) |
+| src/handlers/   | Funções Lambda: ponto de entrada da API (createMovie, listMovies, getMovie, updateMovie) |
 | src/utils/      | Funções utilitárias: validação de dados, logger, helpers                   |
 | src/models/     | Schema/modelo do filme para o MongoDB                                      |
 | src/db/         | Conexão e utilitários para acesso ao MongoDB                               |
@@ -69,9 +69,10 @@ tests/      # Testes automatizados
 
 | Método | Rota         | Descrição           |
 |--------|--------------|---------------------|
-| POST   | /movies      | Cria filme          |
-| GET    | /movies      | Lista filmes        |
-| GET    | /movies/{id} | Busca filme por ID  |
+| POST   | /movies        | Cria filme               |
+| GET    | /movies        | Lista filmes             |
+| GET    | /movies/{id}   | Busca filme por ID       |
+| PUT    | /movies/{id}   | Atualiza filme por ID    |
 
 ---
 
