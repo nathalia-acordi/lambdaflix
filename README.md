@@ -201,11 +201,20 @@ tests/      # Testes automatizados
   ```powershell
   New-Item -ItemType Directory -Force -Path dist
   ```
-2. Empacote cada função (exemplo para createMovie):
+2. Empacote cada função:
   ```powershell
-  Compress-Archive -Path src/handlers/createMovie.mjs,src/utils,src/models,src/db -DestinationPath dist/createMovie.zip -Force
-  Compress-Archive -Path src/handlers/listMovies.mjs,src/utils,src/models,src/db -DestinationPath dist/listMovies.zip -Force
-  Compress-Archive -Path src/handlers/getMovie.mjs,src/utils,src/models,src/db -DestinationPath dist/getMovie.zip -Force
+# createMovie
+Compress-Archive -Path src/handlers/createMovie.mjs,src/utils,src/models,src/db -DestinationPath dist/createMovie.zip -Force
+
+# updateMovie
+Compress-Archive -Path src/handlers/updateMovie.mjs,src/utils,src/models,src/db -DestinationPath dist/updateMovie.zip -Force
+
+# listMovies
+Compress-Archive -Path src/handlers/listMovies.mjs,src/utils,src/db -DestinationPath dist/listMovies.zip -Force
+
+# getMovie
+Compress-Archive -Path src/handlers/getMovie.mjs,src/utils,src/db -DestinationPath dist/getMovie.zip -Force
+
   ```
 
 **🐧 Linux/MacOS:**
