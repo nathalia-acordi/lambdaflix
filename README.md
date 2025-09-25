@@ -160,6 +160,33 @@ tests/      # Testes automatizados
 }
 ```
 
+#### PUT /movies/{id}
+
+**Payload:**
+
+```json
+{
+  "title": "Novo título",
+  "year": 2024
+}
+```
+
+**Resposta 200:**
+
+```json
+{
+  "message": "Filme atualizado com sucesso"
+}
+```
+
+**Resposta 404:**
+
+```json
+{
+  "error": "Filme não encontrado."
+}
+```
+
 ---
 
 
